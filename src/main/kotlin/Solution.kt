@@ -7,7 +7,7 @@ import com.technosudo.Data.Item
 object Solution {
     fun run() {
         val cities = setOf(
-            City(0, setOf(Item(1.0, 1.0))),
+            City(0, setOf(Item(40.0, 1.0))),
             City(1, setOf(Item(1.0, 1.0), Item(1.0, 1.0))),
             City(2, setOf(Item(1.0, 1.0), Item(1.0, 1.0), Item(1.0, 1.0)))
         )
@@ -25,10 +25,11 @@ object Solution {
         val geneticAlgorithm = GeneticAlgorithm(
             cities = cities,
             distances = distances,
-            maxGen = 10,
+            maxGen = 100,
             crossoverChance = 1.0,
-            mutationChance = 0.1,
-            candidateNum = 5,
+            roadMutationChance = 0.1,
+            itemMutationChance = 0.1,
+            candidateNum = 100,
             startingOrder = startingOrder
         )
 

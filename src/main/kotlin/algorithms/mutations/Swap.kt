@@ -4,7 +4,7 @@ import com.technosudo.Data.City
 import com.technosudo.algorithms.misc.Misc
 import kotlin.random.Random
 
-object Swap : Mutation {
+object Swap : RoadMutation {
     override fun mutate(backpacks: Set<List<City>>, chance: Double): Set<List<City>> {
         val result: MutableSet<List<City>> = mutableSetOf()
         for (backpack in backpacks) {

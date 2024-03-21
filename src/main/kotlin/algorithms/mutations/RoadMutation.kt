@@ -2,7 +2,7 @@ package com.technosudo.algorithms.mutations
 
 import com.technosudo.Data.City
 
-interface Mutation {
+interface RoadMutation {
     fun mutate(
         backpacks: Set<List<City>>,
         chance: Double

@@ -1,20 +1,20 @@
 package com.technosudo.Algorithms
 
 import com.technosudo.Data.City
-import com.technosudo.Data.Item
 import com.technosudo.algorithms.Algorithm
 import com.technosudo.algorithms.crossovers.OrderedCrossover
 import com.technosudo.algorithms.evaluation.Evaluation
+import com.technosudo.algorithms.mutations.ItemMutation
 import com.technosudo.algorithms.mutations.Swap
 import com.technosudo.algorithms.selections.BestSelection
-import com.technosudo.algorithms.selections.RandomSelection
 
 class GeneticAlgorithm (
     val cities: Set<City>,
     val distances: Map<Set<Long>, Double>,
     val maxGen: Long,
     val crossoverChance: Double,
-    val mutationChance: Double,
+    val roadMutationChance: Double,
+    val itemMutationChance: Double,
     val candidateNum: Long,
     val startingOrder: List<City>,
     val verbose: Boolean = false,
@@ -33,15 +33,19 @@ class GeneticAlgorithm (
         for (gen in 0..<maxGen) {
             var population = BestSelection.select(history.last(), 3)
             population = OrderedCrossover.crossover(
-                cities = cities,
                 backpacks = population,
                 chance = crossoverChance,
                 num = candidateNum
             )
-            population = Swap.mutate(population, mutationChance)
+            population = Swap.mutate(population, roadMutationChance)
+            population = ItemMutation.mutate(
+                cities = cities,
+                backpacks = population,
+                chance = itemMutationChance
+            )
             history.add(Evaluation.evaluate(population, distances))
+            println(history.last().maxBy { it.second }.second)
         }
-        println(history.last().maxBy { it.second }.second)
         return
     }
 }
